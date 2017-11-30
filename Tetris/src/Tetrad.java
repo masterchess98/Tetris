@@ -10,14 +10,16 @@ import java.util.ArrayList;
 public class Tetrad {
 	
     private Block[] blocks;
-
+    
+    /* 
+	 * instantiate blocks Block array (length 4)
+	 * initialize blocks array with new Block objects 
+	 * declare color variable 
+	 * declare and instantiate locs Location array (length 4) 
+	 * declare shape variable and set equal to zero
+	 */
     public Tetrad(BoundedGrid<Block> grid) {
-        //Exercise 1.2  Insert code here to
-        //                  instantiate blocks Block array (length 4)
-        //                  initialize blocks array with new Block objects
-        //                  declare color variable
-        //                  declare and instantiate locks Location array (length 4)
-        //                  declare shape variable and set equal to zero
+    	
     	blocks = new Block[4];
     	for (int i = 0; i < blocks.length; i++) {
     		blocks[i] = new Block();
@@ -25,16 +27,16 @@ public class Tetrad {
     	
     	Color color = Color.BLACK;
     	
+    	//The 4 blocks to each tetrad
     	Location[] temp = new Location[4];
-        //Exercise 2.0  Insert code here to
-        //                  choose a random integer from 0 to 6
-
+    	
+        //choose a random integer from 0 to 6
     	int shape =(int)(Math.random()*7) ;
     	
-        //Exercise 1.2  Insert code here to
-        //                  branch (if statements) based on each shape number, to then
-        //                      set the color variable for that shape
-        //                      set the block locations for that shape
+        /* Branch (if statements) based on each shape number, to then
+         * set the color variable for that shape
+         * set the block locations for that shape
+         */                      
         if(shape == 0){
         	color = Color.BLUE;
         	temp[1] = new Location(0,3);
@@ -85,10 +87,11 @@ public class Tetrad {
         	temp[3] = new Location(1,5);
         }
         
-        //Exercise 1.2  Insert code here (after the above if statements) to
-        //                  loop through the blocks array to
-        //                      set the color of each block
-        //                  call addToLocations
+        /*
+         * loop through the blocks array to
+         * set the color of each block
+         * call addToLocations
+         */                 
         for (int i = 0; i < 4; i++) {
         	blocks[i].setColor(color);	
         }
@@ -107,7 +110,8 @@ public class Tetrad {
 
     //precondition:  Blocks are in the grid.
     //postcondition: Returns old locations of blocks;
-    //               blocks have been removed from grid.    
+    //               blocks have been removed from grid. 
+    //				 Used to translate, rotate, and/or change tetrads.
     private Location[] removeBlocks() {
     	Location[] temp = new Location[4];
     	for (int i = 0; i < 4; i++) {
@@ -189,11 +193,11 @@ public class Tetrad {
     //               are empty; returns true if successful
     //               and false otherwise.
     public boolean rotate() {
-        //Exercise 3.0  Insert code here to
-        //              ask any block for its grid and store value
-        //              remove the blocks (but save the locations)
-        //              check if the new locations are empty
-        //              replace the tetrad in the proper place (rotated)
+        /* Ask any block for its grid and store value
+         * remove the blocks (but save the locations)
+         * check if the new locations are empty replace 
+         * the tetrad in the proper place (rotated)
+         */
     	boolean b = false;
     	BoundedGrid<Block> temp = null;
     	Location[] tempLoc = new Location[4];

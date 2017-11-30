@@ -46,7 +46,6 @@ public class BoundedGrid<E>
     //precondition:  loc is not null
     public boolean isValid(Location loc)
     {
-        //hint:  use getNumRows and getNumCols
         if (loc.getRow() >= 0 && loc.getRow() < getNumRows())
         {
             if (loc.getCol() >= 0 && loc.getCol() < getNumCols())
@@ -62,7 +61,6 @@ public class BoundedGrid<E>
     //precondition:  loc is valid in this grid
     public E remove(Location loc)
     {
-        //hint:  use the put method to store a null at this location
         E r = get(loc);
         put(loc, null);
         return r;
@@ -71,7 +69,6 @@ public class BoundedGrid<E>
     //returns a list of all occupied locations in this grid
     public ArrayList<Location> getOccupiedLocations()
     {
-        //hint:  use the get method to determine if a location is empty
         ArrayList<Location> theLocations = new ArrayList<Location>();
         
         //look at all the grid locations
