@@ -1,23 +1,20 @@
-/**
- * Tetrad class to be completed for Tetris project
- * 
- * @author (your name) 
- * @version (a version number or a date)
- */
 import java.awt.*;
 import java.util.ArrayList;
 
+/** The different tetrads in tetris game  */
 public class Tetrad {
 	
+	/** Blocks comprising each tetrad */
     private Block[] blocks;
     
-    /* 
-	 * instantiate blocks Block array (length 4)
+    /**
+     * instantiate blocks Block array (length 4)
 	 * initialize blocks array with new Block objects 
 	 * declare color variable 
 	 * declare and instantiate locs Location array (length 4) 
 	 * declare shape variable and set equal to zero
-	 */
+     * @param grid grid of the tetrad
+     */
     public Tetrad(BoundedGrid<Block> grid) {
     	
     	blocks = new Block[4];
@@ -37,49 +34,49 @@ public class Tetrad {
          * set the color variable for that shape
          * set the block locations for that shape
          */                      
-        if(shape == 0){
+        if(shape == 0) {
         	color = Color.BLUE;
         	temp[1] = new Location(0,3);
         	temp[0] = new Location(0,4);
         	temp[2] = new Location(0,5);
         	temp[3] = new Location(0,6);
         }
-        if(shape == 1){
+        if(shape == 1) {
         	color = Color.cyan;
         	temp[1] = new Location(0,3);
         	temp[0] = new Location(0,4);
         	temp[2] = new Location(0,5);
         	temp[3] = new Location(1,4);
         }
-        if(shape == 2){
+        if(shape == 2) {
         	color = Color.red;
         	temp[1] = new Location(0,3);
         	temp[0] = new Location(0,4);
         	temp[2] = new Location(1,3);
         	temp[3] = new Location(1,4);
         }
-        if(shape == 3){
+        if(shape == 3) {
         	color = Color.green;
-        	temp[1] = new Location(0,4);
+        	temp[1] = new Location(1,3);
         	temp[0] = new Location(1,4);
-        	temp[2] = new Location(2,4);
-        	temp[3] = new Location(2,5);
+        	temp[2] = new Location(1,5);
+        	temp[3] = new Location(0,5);
         }
-        if(shape == 4){
+        if(shape == 4) {
         	color = Color.pink;
-        	temp[1] = new Location(0,4);
-        	temp[0] = new Location(1,4);
-        	temp[2] = new Location(2,4);
-        	temp[3] = new Location(2,3);
+        	temp[1] = new Location(0,3);
+        	temp[0] = new Location(1,3);
+        	temp[2] = new Location(1,4);
+        	temp[3] = new Location(1,5);
         }
-        if(shape == 5){
+        if(shape == 5) {
         	color = Color.ORANGE;
         	temp[0] = new Location(0,4);
         	temp[1] = new Location(1,4);
         	temp[2] = new Location(1,3);
         	temp[3] = new Location(0,5);
         }
-        if(shape == 6){
+        if(shape == 6) {
         	color = Color.magenta;
         	temp[0] = new Location(0,4);
         	temp[1] = new Location(1,4);
@@ -97,21 +94,31 @@ public class Tetrad {
         }
         this.addToLocations(grid, temp);
     }
-
-    //precondition:  blocks are not in any grid;
-    //               blocks.length = locs.length = 4.
-    //postcondition: The locations of blocks match locs,
-    //               and blocks have been put in the grid.
+    
+    /**
+     * precondition:  
+     * blocks are not in any grid
+     * blocks.length = locs.length = 4.
+     * Postcondition: 
+     * The locations of blocks match locs,
+     * and blocks have been put in the grid.
+     * @param grid grid of the blocks for the tetrad
+     * @param locs location of the blocks in the grid
+     */
     private void addToLocations(BoundedGrid<Block> grid, Location[] locs) {
          for (int i = 0; i < locs.length ; i++) {
         	 blocks[i].putSelfInGrid(grid, locs[i]);
          }
     }
 
-    //precondition:  Blocks are in the grid.
-    //postcondition: Returns old locations of blocks;
-    //               blocks have been removed from grid. 
-    //				 Used to translate, rotate, and/or change tetrads.
+    /**
+     * precondition:  Blocks are in the grid.
+     * postcondition: 
+     * Returns old locations of blocks;
+     * blocks have been removed from grid. 
+     * Used to translate, rotate, and/or change tetrads.
+     * @return old location of blocks
+     */
     private Location[] removeBlocks() {
     	Location[] temp = new Location[4];
     	for (int i = 0; i < 4; i++) {
@@ -121,29 +128,38 @@ public class Tetrad {
        return temp;    	   
     }
 
-    //postcondition: Returns true if each of locs is
-    //               valid (on the board) AND empty in
-    //               grid; false otherwise.
+    /**
+     * postcondition: Returns true if each of locs is 
+     * valid (on the board) AND empty in grid; false otherwise.
+     * @param grid grid of blocks
+     * @param locs location of blocks
+     * @return true if each of the locs is valid and empty, false otherwise
+     */
     protected boolean areEmpty(BoundedGrid<Block> grid,
                              Location[] locs) {
     	ArrayList<Location> occup = grid.getOccupiedLocations();
     	boolean a = true;
     	for (int i = 0; i < locs.length; i++) {
 			for (Location loc : occup) {
-				if (loc.equals(locs[i]))
+				if (loc.equals(locs[i])) {
 					a = false;
+				}
 			}
-			if (!grid.isValid(locs[i]) || !a) 
+			if (!grid.isValid(locs[i]) || !a) {
 				return false;
+			}
 		}
         return (a);
     }
 
-    //postcondition: Attempts to move this tetrad deltaRow
-    //               rows down and deltaCol columns to the
-    //               right, if those positions are valid
-    //               and empty; returns true if successful
-    //               and false otherwise.
+    /**
+     * postcondition: 
+     * Attempts to move this tetrad deltaRow rows down and deltaCol columns to the 
+     * right, if those positions are valid and empty; returns true if successful and false otherwise.
+     * @param deltaRow change in rows
+     * @param deltaCol change in columns
+     * @return true if new positions are valid and empty, false otherwise
+     */
     public boolean translate(int deltaRow, int deltaCol) {
     	boolean b = false;
     	BoundedGrid<Block> temp = null;
@@ -165,33 +181,34 @@ public class Tetrad {
     		if(possLoc[i].getCol() <= -1 && (this.areEmpty(temp, possLoc))) {
     			this.addToLocations(temp, tempLoc);
     			x1 = false;
-    		}    		
-    		else if (possLoc[i].getCol() > 9 && (this.areEmpty(temp, possLoc)))
+    		} else if (possLoc[i].getCol() > 9 && (this.areEmpty(temp, possLoc))) {
     			x1 = false;
-    		else if (possLoc[i].getRow() <= -1 && (this.areEmpty(temp, possLoc)))
+    		} else if (possLoc[i].getRow() <= -1 && (this.areEmpty(temp, possLoc))) {
     			x1 = false;
-    		else if (possLoc[i].getRow() >= 20 && (this.areEmpty(temp, possLoc)))
-    			x1 = false;    		
+    		} else if (possLoc[i].getRow() >= 20 && (this.areEmpty(temp, possLoc))) {
+    			x1 = false;
+    		}
     	}
     	
-    	if (!this.areEmpty(temp, possLoc))
+    	if (!this.areEmpty(temp, possLoc)) {
     		x1 =false;
+    	}
 			
-    	if(x1){
+    	if(x1) {
 			this.addToLocations(temp, possLoc);
 			b = true;
-    	}
-    	else 
+    	} else {
     		this.addToLocations(temp, tempLoc);
+    	}
     	
        return b;
     }
 
-    //postcondition: Attempts to rotate this tetrad
-    //               clockwise by 90 degrees about its
-    //               center, if the necessary positions
-    //               are empty; returns true if successful
-    //               and false otherwise.
+    /**
+     * /postcondition: Attempts to rotate this tetrad clockwise by 90 degrees about its
+     * center, if the necessary positions are empty; returns true if successful and false otherwise.
+     * @return true if necessary positions are empty false otherwise
+     */
     public boolean rotate() {
         /* Ask any block for its grid and store value
          * remove the blocks (but save the locations)
@@ -225,24 +242,25 @@ public class Tetrad {
     		if(possLoc[i].getCol() <= -1) {
     			this.addToLocations(temp, tempLoc);
     			x1 = false;
+    		} else if (possLoc[i].getCol() > 9) {
+    			x1 = false;
+    		} else if (possLoc[i].getRow() <= -1) {
+    			x1 = false;
+    		} else if (possLoc[i].getRow() >= 20) {
+    			x1 = false;
     		}
-    		else if (possLoc[i].getCol() > 9)
-    			x1 = false;
-    		else if (possLoc[i].getRow() <= -1)
-    			x1 = false;
-    		else if (possLoc[i].getRow() >= 20)
-    			x1 = false;
     	}
-    	if (!this.areEmpty(temp, possLoc))
+    	
+    	if (!this.areEmpty(temp, possLoc)) {
     		x1 =false;
+    	}
 
     	if (x1) {
 			this.addToLocations(temp, possLoc);
 			b = true;
-    	}
-    	else 
+    	} else { 
     		this.addToLocations(temp, tempLoc);
-    	
+    	}    	
        return b;      
     }
 }

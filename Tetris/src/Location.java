@@ -1,15 +1,15 @@
 /**
- * GridWorld Location class provided for Tetris project
- */
-
-/**
  * A <code>Location</code> object represents the row and column of a location
  * in a two-dimensional grid. <br />
  */
+@SuppressWarnings("rawtypes")
 public class Location implements Comparable {
 	
-    private int row; // row location in grid
-    private int col; // column location in grid
+	/** Row location in grid */
+    private int row;
+    
+    /** Column location in grid */
+    private int col;
 
     /**
      * The turn angle for turning 90 degrees to the left.
@@ -108,33 +108,31 @@ public class Location implements Comparable {
     public Location getAdjacentLocation(int direction) {
         // reduce mod 360 and round to closest multiple of 45
         int adjustedDirection = (direction + HALF_RIGHT / 2) % FULL_CIRCLE;
-        if (adjustedDirection < 0)
-            adjustedDirection += FULL_CIRCLE;
-
+        if (adjustedDirection < 0) {
+        	adjustedDirection += FULL_CIRCLE;
+        }
+        
         adjustedDirection = (adjustedDirection / HALF_RIGHT) * HALF_RIGHT;
         int dc = 0;
         int dr = 0;
-        if (adjustedDirection == EAST)
-            dc = 1;
-        else if (adjustedDirection == SOUTHEAST) {
+        if (adjustedDirection == EAST) {
+        	dc = 1;
+        } else if (adjustedDirection == SOUTHEAST) {
             dc = 1;
             dr = 1;
-        }
-        else if (adjustedDirection == SOUTH)
-            dr = 1;
-        else if (adjustedDirection == SOUTHWEST) {
+		} else if (adjustedDirection == SOUTH) {
+			dr = 1;
+		} else if (adjustedDirection == SOUTHWEST) {
             dc = -1;
             dr = 1;
-        }
-        else if (adjustedDirection == WEST)
-            dc = -1;
-        else if (adjustedDirection == NORTHWEST) {
+        } else if (adjustedDirection == WEST) {
+        	dc = -1;
+        } else if (adjustedDirection == NORTHWEST) {
             dc = -1;
             dr = -1;
-        }
-        else if (adjustedDirection == NORTH)
-            dr = -1;
-        else if (adjustedDirection == NORTHEAST) {
+        } else if (adjustedDirection == NORTH) {
+        	dr = -1;
+        } else if (adjustedDirection == NORTHEAST) {
             dc = 1;
             dr = -1;
         }
@@ -152,6 +150,7 @@ public class Location implements Comparable {
     public int getDirectionToward(Location target) {
         int dx = target.getCol() - getCol();
         int dy = target.getRow() - getRow();
+        
         // y axis points opposite to mathematical orientation
         int angle = (int) Math.toDegrees(Math.atan2(-dy, dx));
 
@@ -161,8 +160,9 @@ public class Location implements Comparable {
         // prepare for truncating division by 45 degrees
         compassAngle += HALF_RIGHT / 2;
         // wrap negative angles
-        if (compassAngle < 0)
+        if (compassAngle < 0) {
             compassAngle += FULL_CIRCLE;
+        }
         // round to nearest multiple of 45
         return (compassAngle / HALF_RIGHT) * HALF_RIGHT;
     }
