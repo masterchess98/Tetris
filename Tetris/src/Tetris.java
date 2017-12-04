@@ -34,7 +34,7 @@ public class Tetris implements ArrowListener {
         while (playAgain()) {
         	tetris = new Tetris();
         	tetris.play();
-        }
+        } 
         
     }
     
