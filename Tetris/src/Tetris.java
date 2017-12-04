@@ -114,9 +114,29 @@ public class Tetris implements ArrowListener {
     	boolean gameOver = false;
     	while (!gameOver) {
     		try { 
-    			Thread.sleep(1000);
+    			if (score < 2000) {
+    				Thread.sleep(1000);
+    			} else if (score >= 2000 && score < 4000) {
+    				Thread.sleep(900);
+    			} else if (score >= 4000 && score < 6000) {
+    				Thread.sleep(800);
+    			} else if (score >= 6000 && score < 8000) {
+    				Thread.sleep(700);
+    			} else if (score >=8000 && score <10000) {
+    				Thread.sleep(600);
+    			} else if (score >= 10000 && score < 12000) {
+    				Thread.sleep(500);
+    			} else if (score >= 12000 && score <14000) {
+    				Thread.sleep(400);
+    			} else if (score >= 14000 && score < 16000) {
+    				Thread.sleep(300);
+    			} else if (score >= 16000 && score < 18000) {
+    				Thread.sleep(200);
+    			} else {
+    				Thread.sleep(100);
+    			}
+
     			score += 1;
-    			System.out.println(score);
     			} catch(Exception e) {}
 
     		//for some reason this if-else was completely necessary

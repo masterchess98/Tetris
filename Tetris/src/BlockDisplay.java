@@ -92,7 +92,6 @@ public class BlockDisplay implements KeyListener {
         frame.add(new JLabel(new ImageIcon(image)));
         showBlocks();
         frame.pack();
-        System.out.println(frame.getSize());
         frame.setVisible(true);
     }
     
